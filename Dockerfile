@@ -14,15 +14,7 @@ RUN git clone https://github.com/MiscellaneousStuff/openai-whisper-cpu.git \
  && pip install -e ./whisper
 
 # Install model files
-RUN whisper --model tiny dummy.wav; exit 0
 RUN whisper --model base dummy.wav; exit 0
-RUN whisper --model small dummy.wav; exit 0
-RUN whisper --model medium dummy.wav; exit 0
-RUN whisper --model large dummy.wav; exit 0
-RUN whisper --model tiny.en dummy.wav; exit 0
-RUN whisper --model base.en dummy.wav; exit 0
-RUN whisper --model small.en dummy.wav; exit 0
-RUN whisper --model medium.en dummy.wav; exit 0
 
 WORKDIR /usr/src/app
 

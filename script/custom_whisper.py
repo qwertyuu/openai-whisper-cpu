@@ -44,12 +44,6 @@ def print_size_of_model(model):
 print_size_of_model(model_fp32)
 print_size_of_model(quantized_model)
 
-#audio = whisper.load_audio(audio_file)
-#audio = whisper.pad_or_trim(audio)
-
-#mel   = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
-#options = whisper.DecodingOptions(language=language,fp16=False)
-
 # regular
 #_, probs = model_fp32.detect_language(mel)
 #print(f"Detected language: {max(probs, key=probs.get)}")
@@ -65,8 +59,14 @@ import json
 import time
 def time_model_evaluation(model,audio_file):
     eval_start_time = time.time()
-    # result = whisper.decode(model, mel, options)
-    result = whisper.transcribe(model, audio_file)
+
+    audio = whisper.load_audio(audio_file)
+    audio = whisper.pad_or_trim(audio)
+
+    mel   = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
+    options = whisper.DecodingOptions(language=language,fp16=False)
+    result = whisper.decode(model, mel, options)
+    # result = whisper.transcribe(model, audio_file)
     eval_end_time = time.time()
     eval_duration_time = eval_end_time - eval_start_time
 
