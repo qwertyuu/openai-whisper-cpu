@@ -34,7 +34,7 @@ def time_model_evaluation(model, audio_file):
     mel = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
 
     print("lol4")
-    options = whisper.DecodingOptions(language=language, fp16=True, temperature=0, without_timestamps=True)
+    options = whisper.DecodingOptions(language=language, fp16=False, temperature=0, without_timestamps=True)
 
     print("lol5")
     result = whisper.decode(model, mel, options)

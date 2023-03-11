@@ -1,8 +1,8 @@
-FROM python:3.9-bullseye
+FROM pytorch/pytorch:latest
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    ffmpeg \
+    ffmpeg git \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -11,7 +11,7 @@ RUN git clone https://github.com/MiscellaneousStuff/openai-whisper-cpu.git \
  && cd openai-whisper-cpu \
  && git submodule init \
  && git submodule update \
- && USE_NNPACK=0 pip install -e ./whisper
+ && pip install -e ./whisper
 
 # Install model files
 RUN whisper --model base dummy.wav; exit 0
@@ -19,4 +19,4 @@ RUN whisper --model base dummy.wav; exit 0
 COPY . .
 RUN pip install -r requirements.txt
 
-CMD ["python", "-v", "api.py"]
+CMD ["python", "-v","api.py"]
