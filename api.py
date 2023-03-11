@@ -24,11 +24,21 @@ quantized_model = torch.quantization.quantize_dynamic(
 def time_model_evaluation(model, audio_file):
     eval_start_time = time.time()
 
+    print("lol1")
+
     audio = whisper.load_audio(audio_file)
+
+    print("lol2")
     audio = whisper.pad_or_trim(audio)
 
+    print("lol3")
+
     mel = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
+
+    print("lol4")
     options = whisper.DecodingOptions(language=language, fp16=False, temperature=0, without_timestamps=True)
+
+    print("lol5")
     result = whisper.decode(model, mel, options)
     print(result)
     eval_end_time = time.time()
