@@ -27,8 +27,8 @@ def time_model_evaluation(model, audio_file):
     audio = whisper.load_audio(audio_file)
     audio = whisper.pad_or_trim(audio)
 
-    mel   = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
-    options = whisper.DecodingOptions(language=language,fp16=False,temperature=0,without_timestamps=True)
+    mel = whisper.log_mel_spectrogram(audio).to(model_fp32.device)
+    options = whisper.DecodingOptions(language=language, fp16=False, temperature=0, without_timestamps=True)
     result = whisper.decode(model, mel, options)
     print(result)
     eval_end_time = time.time()
@@ -58,7 +58,11 @@ def save_wav():
     with open(filepath, 'wb') as f:
         f.write(binary_data)
 
-    trs = time_model_evaluation(quantized_model, filepath)
+    try:
+        trs = time_model_evaluation(quantized_model, filepath)
+    except Exception as ex:
+        print(ex)
+        return jsonify("error")
 
     # Return a JSON response indicating the filename and filepath of the saved WAV file
     response = {
@@ -73,15 +77,5 @@ if __name__ == '__main__':
         os.makedirs('audio_files')
     app.run(host="0.0.0.0")
 
-
-
-
-def print_size_of_model(model):
-    path = "temp.p"
-    torch.save(model.state_dict(), path)
-    size = os.path.getsize(path)/1e6
-    print('Size (MB):', size)
-    os.remove(path)
-    return size
 
 
