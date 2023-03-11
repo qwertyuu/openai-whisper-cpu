@@ -10,8 +10,8 @@ language = "French"
 
 model_fp32 = whisper.load_model(
     name="base",
-    device="cpu"
-#   ,in_memory=True
+    device="cpu",
+    in_memory=True
 )
 
 quantized_model = torch.quantization.quantize_dynamic(
