@@ -19,4 +19,4 @@ RUN whisper --model base dummy.wav; exit 0
 COPY . .
 RUN pip install -r requirements.txt
 
-CMD ["python","api.py"]
+CMD ["python", "-v", "api.py"]
