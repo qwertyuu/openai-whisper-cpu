@@ -1,13 +1,11 @@
 import base64
 import uuid
 from flask import Flask, request, jsonify
-import subprocess
 import whisper
 import torch
 import os
 import time
 
-print(subprocess.check_output(['ffmpeg', '-version']))
 language = "French"
 
 model_fp32 = whisper.load_model(
