@@ -14,7 +14,7 @@ RUN git clone https://github.com/MiscellaneousStuff/openai-whisper-cpu.git \
  && pip install -e ./whisper
 
 # Install model files
-RUN whisper --model small dummy.wav; exit 0
+RUN whisper --model base dummy.wav; exit 0
 
 COPY . .
 RUN pip install -r requirements.txt

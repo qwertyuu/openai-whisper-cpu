@@ -11,7 +11,7 @@ print(subprocess.check_output(['ffmpeg', '-version']))
 language = "French"
 
 model_fp32 = whisper.load_model(
-    name="small",
+    name="base",
     device="cpu"
 #   ,in_memory=True
 )
